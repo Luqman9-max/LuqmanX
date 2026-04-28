@@ -47,8 +47,24 @@ export const VARIANTS = {
     hidden: { clipPath: "inset(100% 0 0 0)", y: 20 },
     visible: { clipPath: "inset(0 0 0 0)", y: 0, transition: { duration: TIMING.slow, ease: EASING.dramatic } },
   },
+  wordReveal: {
+    hidden: { clipPath: "inset(100% 0 0 0)", y: 10 },
+    visible: { clipPath: "inset(0 0 0 0)", y: 0, transition: { duration: TIMING.normal, ease: EASING.dramatic } },
+  },
+  glowIn: {
+    hidden: { opacity: 0, scale: 0.9, boxShadow: "0 0 0px rgba(0,0,0,0)" },
+    visible: { opacity: 1, scale: 1, boxShadow: "0 0 20px rgba(249,115,22,0.15)", transition: { duration: TIMING.normal, ease: EASING.snappy } },
+  },
+  drawLine: {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: { pathLength: 1, opacity: 1, transition: { duration: 1.5, ease: EASING.smooth } },
+  },
+  pulseIdle: {
+    hidden: { scale: 1 },
+    visible: { scale: [1, 1.02, 1], transition: { duration: 3, repeat: Infinity, ease: "easeInOut" } },
+  },
   staggerContainer: {
     hidden: {},
     visible: { transition: { staggerChildren: TIMING.stagger } },
   },
-} as const
+} as any

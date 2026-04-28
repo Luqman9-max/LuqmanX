@@ -11,7 +11,7 @@ const technologies = [
 
 export function TechStackTicker() {
   return (
-    <div className="w-full overflow-hidden border-y border-dark-800 bg-dark-900/50 py-6 flex items-center relative">
+    <div className="w-full overflow-hidden bg-dark-900/50 py-6 flex items-center relative">
       {/* Gradients for fading edges */}
       <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-dark-950 to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-dark-950 to-transparent z-10 pointer-events-none" />

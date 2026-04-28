@@ -7,7 +7,9 @@ import { SectionHeader } from "@/components/ui/SectionHeader"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
 import { SectionDivider } from "@/components/effects/SectionDivider"
-import { HeroGrid } from "@/components/effects/HeroGrid"
+import { HeroShell } from "@/components/heroes/HeroShell"
+import { HeroAtmosphere } from "@/components/heroes/HeroAtmosphere"
+import { PortfolioHeroCards } from "@/components/heroes/PortfolioHeroCards"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight, ExternalLink, GitBranch, Layout, Image as ImageIcon } from "lucide-react"
@@ -56,78 +58,53 @@ export default function PortfolioPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center pt-32 pb-20 overflow-hidden">
-        <HeroGrid />
-        
-        {/* Dynamic Filmstrip Mosaic */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
-          <motion.div 
-            className="absolute top-[15%] left-[5%] w-72 h-44 bg-dark-900 border border-dark-700 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center backdrop-blur-sm"
-            animate={{ y: [-10, 10, -10], rotate: [-10, -8, -10] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ImageIcon className="w-12 h-12 text-dark-700" />
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent mix-blend-overlay" />
-          </motion.div>
-          
-          <motion.div 
-            className="absolute top-[35%] right-[5%] w-80 h-52 bg-dark-900 border border-dark-700 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center backdrop-blur-sm"
-            animate={{ y: [15, -15, 15], rotate: [5, 8, 5] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          >
-            <ImageIcon className="w-16 h-16 text-dark-700" />
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent mix-blend-overlay" />
-          </motion.div>
-          
-          <motion.div 
-            className="absolute bottom-[5%] left-[25%] w-64 h-40 bg-dark-900 border border-dark-700 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center backdrop-blur-sm hidden md:flex"
-            animate={{ y: [-15, 15, -15], rotate: [-5, -2, -5] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          >
-            <ImageIcon className="w-10 h-10 text-dark-700" />
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent mix-blend-overlay" />
-          </motion.div>
-        </div>
+      <HeroShell minHeight="60vh">
+        <HeroAtmosphere variant="blueprint" />
 
-        <Container className="relative z-10">
+        <Container className="relative z-10 w-full">
           {/* Watermark Number */}
           <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[15rem] md:text-[20rem] font-display font-bold text-dark-800/30 select-none pointer-events-none z-0 mix-blend-overlay">
             04
           </div>
 
-          <div className="max-w-3xl relative z-10">
-            <MotionReveal variant="fadeDown" className="mb-6 flex flex-col items-start gap-4">
-              <span className="font-mono text-neutral-500 tracking-widest uppercase text-xs">
-                System.Root // Portfolio
-              </span>
-              <div className="flex items-center gap-4">
-                <span className="font-mono text-purple-500 tracking-widest uppercase text-sm">
-                  // System.Archive
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+            {/* Left Column: Text */}
+            <div className="lg:col-span-5 flex flex-col items-start">
+              <MotionReveal variant="fadeDown" className="mb-6 flex flex-col items-start gap-4">
+                <span className="font-mono text-neutral-500 tracking-widest uppercase text-xs">
+                  System.Root // Portfolio
                 </span>
-                <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-purple-500/10 text-purple-500 text-xs font-mono font-bold border border-purple-500/30">
-                  {projects.length} PROJECTS
-                </span>
-              </div>
-            </MotionReveal>
-            
-            <MotionReveal variant="clipRevealBottom" className="mb-8">
-              <h1 className="text-5xl md:text-7xl font-display font-bold text-white leading-tight">
-                Featured <br />
-                <span className="relative inline-block group">
+                <div className="flex items-center gap-4">
+                  <span className="font-mono text-purple-500 tracking-widest uppercase text-sm">
+                    // System.Archive
+                  </span>
+                  <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-purple-500/10 text-purple-500 text-xs font-mono font-bold border border-purple-500/30">
+                    {projects.length} PROJECTS
+                  </span>
+                </div>
+              </MotionReveal>
+              
+              <MotionReveal variant="wordReveal" className="mb-8">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-tight">
+                  Featured <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-orange-500">Deployments</span>
-                  <span className="absolute bottom-1 md:bottom-3 left-0 w-full h-1.5 bg-gradient-to-r from-purple-500 to-orange-500 origin-left scale-x-0 transition-transform duration-700 group-hover:scale-x-100" />
-                </span>
-              </h1>
-            </MotionReveal>
-            
-            <MotionReveal variant="fadeUp" delay={200}>
-              <p className="text-xl text-neutral-400 leading-relaxed font-mono max-w-2xl">
-                A curated selection of technical projects, demonstrating architecture, design, and complex problem solving.
-              </p>
-            </MotionReveal>
+                </h1>
+              </MotionReveal>
+              
+              <MotionReveal variant="fadeUp" delay={400}>
+                <p className="text-xl text-neutral-400 leading-relaxed font-mono">
+                  A curated selection of technical projects, demonstrating architecture, design, and complex problem solving.
+                </p>
+              </MotionReveal>
+            </div>
+
+            {/* Right Column: Visual */}
+            <div className="lg:col-span-7">
+              <PortfolioHeroCards />
+            </div>
           </div>
         </Container>
-      </section>
+      </HeroShell>
 
       <SectionDivider />
 

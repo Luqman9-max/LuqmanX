@@ -11,7 +11,9 @@ import { Timeline } from "@/components/ui/Timeline"
 import { CodeBlock } from "@/components/effects/CodeBlock"
 import { SectionDivider } from "@/components/effects/SectionDivider"
 import { CountUp } from "@/components/effects/CountUp"
-import { HeroGrid } from "@/components/effects/HeroGrid"
+import { HeroShell } from "@/components/heroes/HeroShell"
+import { HeroAtmosphere } from "@/components/heroes/HeroAtmosphere"
+import { AboutPortraitFrame } from "@/components/heroes/AboutPortraitFrame"
 import Link from "next/link"
 import { Code2, Database, Layout, Sparkles, Terminal, ArrowRight, Server, Wrench, FileCode2, Cpu, Globe } from "lucide-react"
 
@@ -19,18 +21,18 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center pt-32 pb-20 overflow-hidden">
+      <HeroShell minHeight="60vh">
         {/* Background elements */}
-        <HeroGrid />
+        <HeroAtmosphere variant="streams" />
         
         {/* Vertical Tech Flow (DNA Helix style) */}
-        <div className="absolute right-[-5%] top-0 bottom-0 w-64 opacity-20 pointer-events-none hidden lg:flex flex-col justify-center gap-12 mask-fade-edges">
+        <div className="absolute right-[5%] top-0 bottom-0 w-32 opacity-20 pointer-events-none hidden lg:flex flex-col justify-center gap-12 mask-fade-edges z-0">
           {[Code2, Terminal, Database, Server, Cpu, Globe, FileCode2, Layout].map((Icon, i) => (
             <motion.div
               key={i}
               className="flex justify-center"
               animate={{
-                x: [Math.sin(i) * 50, Math.sin(i + Math.PI) * 50, Math.sin(i) * 50],
+                x: [Math.sin(i) * 30, Math.sin(i + Math.PI) * 30, Math.sin(i) * 30],
                 opacity: [0.3, 0.8, 0.3],
                 scale: [0.8, 1.2, 0.8],
               }}
@@ -41,48 +43,50 @@ export default function AboutPage() {
                 delay: i * 0.5,
               }}
             >
-              <Icon className={`w-12 h-12 ${i % 2 === 0 ? 'text-orange-500' : 'text-purple-500'}`} />
+              <Icon className={`w-8 h-8 ${i % 2 === 0 ? 'text-orange-500' : 'text-purple-500'}`} />
             </motion.div>
           ))}
         </div>
 
-        <Container className="relative z-10">
+        <Container className="relative z-10 w-full">
           {/* Watermark Number */}
           <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[15rem] md:text-[20rem] font-display font-bold text-dark-800/30 select-none pointer-events-none z-0 mix-blend-overlay">
             02
           </div>
 
-          <div className="max-w-3xl relative z-10">
-            <MotionReveal variant="fadeDown" className="mb-6 flex flex-col items-start gap-4">
-              <span className="font-mono text-neutral-500 tracking-widest uppercase text-xs">
-                System.Root // About
-              </span>
-              <span className="font-mono text-orange-500 tracking-widest uppercase text-sm">
-                // System.Profile
-              </span>
-            </MotionReveal>
-            
-            <MotionReveal variant="clipRevealBottom" className="mb-8">
-              <h1 className="text-5xl md:text-7xl font-display font-bold text-white leading-tight">
-                Engineering <span className="relative inline-block group">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-500">Logic</span>
-                  <span className="absolute bottom-1 md:bottom-3 left-0 w-full h-1.5 bg-gradient-to-r from-orange-500 to-purple-500 origin-left scale-x-0 transition-transform duration-700 group-hover:scale-x-100" />
-                </span> <br />
-                Designing <span className="relative inline-block group">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-orange-500">Impact</span>
-                  <span className="absolute bottom-1 md:bottom-3 left-0 w-full h-1.5 bg-gradient-to-r from-purple-500 to-orange-500 origin-left scale-x-0 transition-transform duration-700 group-hover:scale-x-100" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+            {/* Left Column: Visual */}
+            <div className="lg:col-span-5 order-2 lg:order-1">
+              <AboutPortraitFrame />
+            </div>
+
+            {/* Right Column: Text */}
+            <div className="lg:col-span-7 flex flex-col items-start order-1 lg:order-2">
+              <MotionReveal variant="fadeDown" className="mb-6 flex flex-col items-start gap-4">
+                <span className="font-mono text-neutral-500 tracking-widest uppercase text-xs">
+                  System.Root // About
                 </span>
-              </h1>
-            </MotionReveal>
-            
-            <MotionReveal variant="fadeUp" delay={200}>
-              <p className="text-xl text-neutral-400 leading-relaxed font-mono">
-                Information Systems student translating complex business requirements into elegant, high-performance digital solutions.
-              </p>
-            </MotionReveal>
+                <span className="font-mono text-orange-500 tracking-widest uppercase text-sm">
+                  // System.Profile
+                </span>
+              </MotionReveal>
+              
+              <MotionReveal variant="wordReveal" className="mb-8">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-tight tracking-tight">
+                  Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-500">Logic.</span> <br />
+                  Designing <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-orange-500">Impact.</span>
+                </h1>
+              </MotionReveal>
+              
+              <MotionReveal variant="fadeUp" delay={400} className="max-w-2xl">
+                <p className="text-xl text-neutral-400 leading-relaxed font-mono">
+                  Information Systems student translating complex business requirements into elegant, high-performance digital solutions.
+                </p>
+              </MotionReveal>
+            </div>
           </div>
         </Container>
-      </section>
+      </HeroShell>
 
       <SectionDivider />
 

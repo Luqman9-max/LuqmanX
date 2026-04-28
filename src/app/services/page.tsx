@@ -8,7 +8,9 @@ import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
 import { SectionDivider } from "@/components/effects/SectionDivider"
 import { CountUp } from "@/components/effects/CountUp"
-import { HeroGrid } from "@/components/effects/HeroGrid"
+import { HeroShell } from "@/components/heroes/HeroShell"
+import { HeroAtmosphere } from "@/components/heroes/HeroAtmosphere"
+import { ServiceConstellation } from "@/components/heroes/ServiceConstellation"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, Code2, Database, Layout, Server, Sparkles, Terminal, ChevronRight } from "lucide-react"
@@ -95,33 +97,16 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center pt-32 pb-20 overflow-hidden text-center">
-        <HeroGrid />
+      {/* Hero Section */}
+      <HeroShell minHeight="60vh" className="text-center">
+        <HeroAtmosphere variant="orbital" />
         
-        {/* Animated orbits */}
-        <motion.div 
-          className="absolute top-1/2 left-1/2 w-[600px] h-[600px] border border-dark-800 rounded-full opacity-20 pointer-events-none"
-          style={{ x: "-50%", y: "-50%" }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        >
-          <div className="absolute top-0 left-1/2 w-3 h-3 bg-orange-500 rounded-full shadow-[0_0_15px_#f97316] -translate-x-1/2 -translate-y-1/2" />
-        </motion.div>
-        
-        <motion.div 
-          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] border border-dark-700 rounded-full opacity-40 pointer-events-none"
-          style={{ x: "-50%", y: "-50%" }}
-          animate={{ rotate: -360 }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        >
-          <div className="absolute bottom-0 left-1/2 w-4 h-4 bg-purple-500 rounded-full shadow-[0_0_15px_#a855f7] -translate-x-1/2 translate-y-1/2" />
-        </motion.div>
-        
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-orange-500/5 rounded-full blur-[100px] pointer-events-none" />
+        {/* Orbital Background Visualization */}
+        <ServiceConstellation />
 
-        <Container className="relative z-10 flex flex-col items-center">
+        <Container className="relative z-10 flex flex-col items-center w-full">
           {/* Watermark Number */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] md:text-[20rem] font-display font-bold text-dark-800/30 select-none pointer-events-none z-0 mix-blend-overlay">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] md:text-[20rem] font-display font-bold text-dark-800/10 select-none pointer-events-none z-0">
             03
           </div>
 
@@ -134,22 +119,34 @@ export default function ServicesPage() {
             </span>
           </MotionReveal>
           
-          <MotionReveal variant="clipRevealBottom" className="mb-8 max-w-4xl mx-auto relative z-10">
-            <h1 className="text-5xl md:text-7xl font-display font-bold text-white leading-tight">
-              Technical <span className="relative inline-block group">
+          <MotionReveal variant="wordReveal" className="mb-8 max-w-5xl mx-auto relative z-10 w-full">
+            <div className="flex items-center justify-center gap-6 md:gap-12 w-full">
+              <div className="hidden md:block flex-1 h-[1px] bg-gradient-to-r from-transparent to-dark-700 max-w-[200px]" />
+              <h1 className="text-5xl md:text-6xl lg:text-8xl font-display font-bold text-white leading-tight tracking-tight shrink-0">
+                Technical <br className="md:hidden" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-500">Solutions</span>
-                <span className="absolute bottom-1 md:bottom-3 left-0 w-full h-1.5 bg-gradient-to-r from-orange-500 to-purple-500 origin-left scale-x-0 transition-transform duration-700 group-hover:scale-x-100" />
-              </span>
-            </h1>
+              </h1>
+              <div className="hidden md:block flex-1 h-[1px] bg-gradient-to-l from-transparent to-dark-700 max-w-[200px]" />
+            </div>
           </MotionReveal>
           
-          <MotionReveal variant="fadeUp" delay={200} className="relative z-10">
+          <MotionReveal variant="fadeUp" delay={400} className="relative z-10">
             <p className="text-xl text-neutral-400 leading-relaxed font-mono max-w-2xl mx-auto">
               Comprehensive web engineering services, delivering high-performance applications from database to interface.
             </p>
           </MotionReveal>
+          
+          <MotionReveal variant="glowIn" delay={800} className="mt-10 relative z-10">
+             <Button variant="outline" size="lg" className="rounded-full bg-dark-900/50 backdrop-blur-md border-orange-500/30 hover:bg-orange-500/10 text-orange-500" asChild>
+                <Link href="#capabilities" className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-orange-500 animate-[pulseIdle_3s_infinite]" />
+                  View Capabilities
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+             </Button>
+          </MotionReveal>
         </Container>
-      </section>
+      </HeroShell>
 
       <SectionDivider />
 

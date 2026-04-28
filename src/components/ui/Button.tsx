@@ -49,9 +49,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             {
               "bg-orange-500 text-white hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(249,115,22,0.4)]": variant === "primary",
               "border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white": variant === "secondary",
-              "border border-dark-700 bg-dark-800 text-neutral-300 hover:text-white hover:border-neutral-500": variant === "outline",
+              "border border-dark-700/60 bg-transparent text-neutral-300 hover:text-white hover:border-neutral-400 hover:bg-white/5": variant === "outline",
               "hover:bg-dark-800 text-neutral-300 hover:text-neutral-100": variant === "ghost",
-              "bg-gradient-to-r from-orange-500 to-purple-500 text-white hover:scale-[1.02] shadow-lg shadow-orange-500/20 hover:shadow-purple-500/40 border-0 before:absolute before:inset-0 before:bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.25)_50%,rgba(255,255,255,0)_100%)] before:bg-[length:200%_auto] hover:before:animate-[shimmer_2s_infinite_linear] before:pointer-events-none": variant === "gradient",
+              "bg-gradient-to-r from-orange-500 to-purple-500 text-white hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] border-0 before:absolute before:inset-0 before:bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.25)_50%,rgba(255,255,255,0)_100%)] before:bg-[length:200%_auto] hover:before:animate-[shimmer_2s_infinite_linear] before:pointer-events-none": variant === "gradient",
               "h-10 px-4 py-2": size === "default",
               "h-9 rounded-md px-3": size === "sm",
               "h-11 rounded-lg px-8 text-base": size === "lg",
@@ -75,9 +75,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {
             "bg-orange-500 text-white hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(249,115,22,0.4)]": variant === "primary",
             "border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white": variant === "secondary",
-            "border border-dark-700 bg-dark-800 text-neutral-300 hover:text-white hover:border-neutral-500": variant === "outline",
+            "border border-dark-700/60 bg-transparent text-neutral-300 hover:text-white hover:border-neutral-400 hover:bg-white/5": variant === "outline",
             "hover:bg-dark-800 text-neutral-300 hover:text-neutral-100": variant === "ghost",
-            "bg-gradient-to-r from-orange-500 to-purple-500 text-white hover:scale-[1.02] shadow-lg shadow-orange-500/20 hover:shadow-purple-500/40 border-0 before:absolute before:inset-0 before:bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.25)_50%,rgba(255,255,255,0)_100%)] before:bg-[length:200%_auto] hover:before:animate-[shimmer_2s_infinite_linear] before:pointer-events-none": variant === "gradient",
+            "bg-gradient-to-r from-orange-500 to-purple-500 text-white hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] border-0 before:absolute before:inset-0 before:bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.25)_50%,rgba(255,255,255,0)_100%)] before:bg-[length:200%_auto] hover:before:animate-[shimmer_2s_infinite_linear] before:pointer-events-none": variant === "gradient",
             "h-10 px-4 py-2": size === "default",
             "h-9 rounded-md px-3": size === "sm",
             "h-11 rounded-lg px-8 text-base": size === "lg",

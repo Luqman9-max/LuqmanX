@@ -9,7 +9,9 @@ import { ParticleField } from "@/components/effects/ParticleField"
 import { CodeBlock } from "@/components/effects/CodeBlock"
 import { CountUp } from "@/components/effects/CountUp"
 import { SectionDivider } from "@/components/effects/SectionDivider"
-import { HeroGrid } from "@/components/effects/HeroGrid"
+import { HeroShell } from "@/components/heroes/HeroShell"
+import { HeroAtmosphere } from "@/components/heroes/HeroAtmosphere"
+import { LandingHeroVisual } from "@/components/heroes/LandingHeroVisual"
 import Link from "next/link"
 import { ArrowRight, Code2, Database, Layout, Server, Sparkles, ChevronDown } from "lucide-react"
 
@@ -17,73 +19,66 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[100svh] flex items-center justify-center pt-20 overflow-hidden">
-        {/* Animated Background Grid & Particles */}
-        <HeroGrid />
+      <HeroShell minHeight="100svh">
+        <HeroAtmosphere variant="converge" />
         <ParticleField />
         
-        {/* Animated Scan Line */}
-        <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none">
-          <div className="scan-line" />
-        </div>
-        
-        <Container className="relative z-10">
+        <Container className="relative z-10 w-full">
           {/* Watermark Number */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] md:text-[20rem] font-display font-bold text-dark-800/30 select-none pointer-events-none z-0 mix-blend-overlay">
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[15rem] md:text-[20rem] font-display font-bold text-dark-800/30 select-none pointer-events-none z-0 mix-blend-overlay">
             01
           </div>
 
-          <div className="max-w-4xl mx-auto text-center flex flex-col items-center relative z-10">
-            <MotionReveal variant="fadeDown" className="mb-6 flex flex-col items-center gap-4">
-              <span className="font-mono text-neutral-500 tracking-widest uppercase text-xs">
-                System.Root // Home
-              </span>
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-800/50 border border-dark-700 text-sm text-neutral-300 backdrop-blur-md">
-                <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-                Available for new opportunities
-              </span>
-            </MotionReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            {/* Left Column: Text */}
+            <div className="flex flex-col items-start relative z-10">
+              <MotionReveal variant="fadeDown" className="mb-6 flex items-center gap-4">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-800/50 border border-dark-700 text-sm text-neutral-300 backdrop-blur-md">
+                  <span className="w-2 h-2 rounded-full bg-orange-500 animate-[pulseIdle_3s_infinite]" />
+                  System.Status: Online
+                </span>
+              </MotionReveal>
 
-            <MotionReveal variant="clipRevealBottom" delay={200} className="mb-6 overflow-visible">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-tight leading-[1.1]">
-                Engineering <br className="hidden md:block" />
-                <span className="relative inline-block group">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-500">Digital</span>
-                  {/* Animated underline */}
-                  <span className="absolute bottom-1 md:bottom-3 left-0 w-full h-1.5 bg-gradient-to-r from-orange-500 to-purple-500 origin-left scale-x-0 transition-transform duration-700 group-hover:scale-x-100" />
-                </span> Excellence
-              </h1>
-            </MotionReveal>
+              <MotionReveal variant="wordReveal" className="mb-6">
+                <h1 className="text-5xl md:text-6xl lg:text-8xl font-display font-bold text-white tracking-tight leading-[1.1]">
+                  Engineering <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-500">Digital</span> <br className="hidden md:block" />
+                  Excellence
+                </h1>
+              </MotionReveal>
 
-            <MotionReveal variant="fadeUp" delay={400} className="mb-10 max-w-2xl mx-auto">
-              <p className="text-xl text-neutral-400 font-mono">
-                <TextReveal delay={600}>I build high-performance web systems and premium interactive experiences.</TextReveal>
-                <span className="inline-block w-2 h-5 ml-1 bg-orange-500 animate-pulse align-middle" />
-              </p>
-            </MotionReveal>
+              <MotionReveal variant="fadeUp" delay={400} className="mb-10 max-w-xl">
+                <p className="text-xl text-neutral-400 font-mono leading-relaxed">
+                  <TextReveal delay={600}>I build high-performance web systems and premium interactive experiences that demand attention.</TextReveal>
+                </p>
+              </MotionReveal>
 
-            <MotionReveal variant="fadeUp" delay={1000} className="flex flex-col sm:flex-row items-center gap-4">
-              <Button variant="gradient" size="lg" className="w-full sm:w-auto" asChild>
-                <Link href="/portfolio">View My Work</Link>
-              </Button>
-              <Button variant="outline" size="lg" className="w-full sm:w-auto group" asChild>
-                <Link href="/contact" className="flex items-center gap-2">
-                  Let's Talk 
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-            </MotionReveal>
+              <MotionReveal variant="glowIn" delay={1000} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+                <Button variant="gradient" size="lg" className="w-full sm:w-auto" asChild>
+                  <Link href="/portfolio">Explore Architecture</Link>
+                </Button>
+                <Button variant="outline" size="lg" className="w-full sm:w-auto group" asChild>
+                  <Link href="/contact" className="flex items-center gap-2">
+                    Initialize Contact 
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+              </MotionReveal>
+            </div>
+
+            {/* Right Column: Visual */}
+            <LandingHeroVisual />
           </div>
         </Container>
 
         {/* Scroll Indicator */}
-        <MotionReveal variant="fadeDown" delay={1500} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+        <MotionReveal variant="fadeUp" delay={1500} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest">Scroll to explore</span>
           <div className="w-6 h-10 border border-dark-700 rounded-full flex justify-center p-1 relative overflow-hidden bg-dark-900/50 backdrop-blur-sm">
             <div className="w-1 h-2 bg-orange-500 rounded-full animate-[float_1.5s_infinite]" />
           </div>
         </MotionReveal>
-      </section>
+      </HeroShell>
 
       {/* Tech Stack Ticker */}
       <TechStackTicker />
