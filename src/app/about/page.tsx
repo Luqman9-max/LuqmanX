@@ -88,10 +88,8 @@ export default function AboutPage() {
         </Container>
       </HeroShell>
 
-      <SectionDivider />
-
       {/* Philosophy Section (System Diagram) */}
-      <section className="section-padding relative bg-dark-900/30">
+      <section className="section-padding relative bg-dark-900/30 -mt-16 z-[2]">
         <Container>
           <SectionHeader
             count="01"

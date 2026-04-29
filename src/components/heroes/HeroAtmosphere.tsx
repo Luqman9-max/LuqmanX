@@ -13,7 +13,7 @@ interface HeroAtmosphereProps {
 
 export function HeroAtmosphere({ variant, className }: HeroAtmosphereProps) {
   return (
-    <div className={cn("absolute -top-20 left-0 right-0 -bottom-32 z-0 pointer-events-none", className)}>
+    <div className={cn("absolute -top-20 left-0 right-0 -bottom-48 z-0 pointer-events-none", className)}>
       {variant === "converge" && <ConvergeAtmosphere />}
       {variant === "streams" && <StreamsAtmosphere />}
       {variant === "blueprint" && <BlueprintAtmosphere />}

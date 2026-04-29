@@ -79,10 +79,8 @@ export default function ContactPage() {
         </Container>
       </HeroShell>
 
-      <SectionDivider />
-
       {/* Main Content */}
-      <section className="py-20 relative bg-dark-950">
+      <section className="py-20 relative bg-dark-950 -mt-16 z-[2]">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
             

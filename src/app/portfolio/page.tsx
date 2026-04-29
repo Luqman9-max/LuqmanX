@@ -106,10 +106,8 @@ export default function PortfolioPage() {
         </Container>
       </HeroShell>
 
-      <SectionDivider />
-
       {/* Projects Feed */}
-      <section className="py-20 relative bg-dark-950">
+      <section className="py-20 relative bg-dark-950 -mt-16 z-[2]">
         <Container>
           <div className="flex flex-col gap-32">
             {projects.map((project, index) => {

@@ -150,10 +150,8 @@ export default function ServicesPage() {
         </Container>
       </HeroShell>
 
-      <SectionDivider />
-
       {/* Services Detail - Bento Grid */}
-      <section className="py-20 relative bg-dark-950">
+      <section className="py-20 relative bg-dark-950 -mt-16 z-[2]">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             

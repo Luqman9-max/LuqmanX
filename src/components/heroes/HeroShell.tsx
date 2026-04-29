@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 interface HeroShellProps {
   children: React.ReactNode
   className?: string
-  minHeight?: "100svh" | "60vh" | "50vh"
+  minHeight?: "100svh" | "60vh" | "50vh" // Kept for backwards compatibility if needed, but ignored in styling
 }
 
 export function HeroShell({ 
@@ -17,18 +17,14 @@ export function HeroShell({
   return (
     <section 
       className={cn(
-        "relative flex items-center pb-20 overflow-visible",
-        {
-          "min-h-[100svh] -mt-20 pt-20": minHeight === "100svh", // Landing page
-          "min-h-[70vh] -mt-20 pt-32": minHeight === "60vh" || minHeight === "50vh", // Sub-pages
-        },
+        "relative flex items-center pb-20 overflow-visible min-h-[100svh] -mt-20 pt-20",
         className
       )}
     >
       {children}
       
       {/* Bottom fade to smoothly transition to next section */}
-      <div className="absolute -bottom-4 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-dark-950 z-[1] pointer-events-none" />
+      <div className="absolute -bottom-16 left-0 right-0 h-80 bg-gradient-to-b from-transparent to-dark-950 z-[1] pointer-events-none" />
     </section>
   )
 }
