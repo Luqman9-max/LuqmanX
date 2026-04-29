@@ -10,7 +10,7 @@ import { SectionDivider } from "@/components/effects/SectionDivider"
 import { CountUp } from "@/components/effects/CountUp"
 import { HeroShell } from "@/components/heroes/HeroShell"
 import { HeroAtmosphere } from "@/components/heroes/HeroAtmosphere"
-import { ServiceConstellation } from "@/components/heroes/ServiceConstellation"
+import { ServiceMatrix } from "@/components/heroes/ServiceMatrix"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, Code2, Database, Layout, Server, Sparkles, Terminal, ChevronRight } from "lucide-react"
@@ -97,54 +97,56 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero Section */}
-      {/* Hero Section */}
-      <HeroShell minHeight="60vh" className="text-center">
-        <HeroAtmosphere variant="orbital" />
+      <HeroShell minHeight="60vh">
+        <HeroAtmosphere variant="network" />
         
-        {/* Orbital Background Visualization */}
-        <ServiceConstellation />
-
-        <Container className="relative z-10 flex flex-col items-center w-full">
+        <Container className="relative z-10 w-full">
           {/* Watermark Number */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] md:text-[20rem] font-display font-bold text-dark-800/10 select-none pointer-events-none z-0">
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[15rem] md:text-[20rem] font-display font-bold text-dark-800/30 select-none pointer-events-none z-0 mix-blend-overlay">
             03
           </div>
 
-          <MotionReveal variant="fadeDown" className="mb-6 flex flex-col items-center gap-4 relative z-10">
-            <span className="font-mono text-neutral-500 tracking-widest uppercase text-xs">
-              System.Root // Services
-            </span>
-            <span className="font-mono text-orange-500 tracking-widest uppercase text-sm">
-              // System.Capabilities
-            </span>
-          </MotionReveal>
-          
-          <MotionReveal variant="wordReveal" className="mb-8 max-w-5xl mx-auto relative z-10 w-full">
-            <div className="flex items-center justify-center gap-6 md:gap-12 w-full">
-              <div className="hidden md:block flex-1 h-[1px] bg-gradient-to-r from-transparent to-dark-700 max-w-[200px]" />
-              <h1 className="text-5xl md:text-6xl lg:text-8xl font-display font-bold text-white leading-tight tracking-tight shrink-0">
-                Technical <br className="md:hidden" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-500">Solutions</span>
-              </h1>
-              <div className="hidden md:block flex-1 h-[1px] bg-gradient-to-l from-transparent to-dark-700 max-w-[200px]" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+            {/* Left Column: Text */}
+            <div className="lg:col-span-5 flex flex-col items-start">
+              <MotionReveal variant="fadeDown" className="mb-6 flex flex-col items-start gap-4">
+                <span className="font-mono text-neutral-500 tracking-widest uppercase text-xs">
+                  System.Root // Services
+                </span>
+                <span className="font-mono text-orange-500 tracking-widest uppercase text-sm">
+                  // System.Capabilities
+                </span>
+              </MotionReveal>
+              
+              <MotionReveal variant="wordReveal" className="mb-8">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-tight">
+                  Technical <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-500">Solutions</span>
+                </h1>
+              </MotionReveal>
+              
+              <MotionReveal variant="fadeUp" delay={400}>
+                <p className="text-xl text-neutral-400 leading-relaxed font-mono">
+                  Comprehensive web engineering services, delivering high-performance applications from database to interface.
+                </p>
+              </MotionReveal>
+              
+              <MotionReveal variant="fadeUp" delay={800} width="fit-content" className="mt-10">
+                 <Button variant="outline" size="lg" className="group" asChild>
+                    <Link href="#capabilities" className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-orange-500 animate-[pulseIdle_3s_infinite]" />
+                      View Capabilities
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                 </Button>
+              </MotionReveal>
             </div>
-          </MotionReveal>
-          
-          <MotionReveal variant="fadeUp" delay={400} className="relative z-10">
-            <p className="text-xl text-neutral-400 leading-relaxed font-mono max-w-2xl mx-auto">
-              Comprehensive web engineering services, delivering high-performance applications from database to interface.
-            </p>
-          </MotionReveal>
-          
-          <MotionReveal variant="glowIn" delay={800} className="mt-10 relative z-10">
-             <Button variant="outline" size="lg" className="rounded-full bg-dark-900/50 backdrop-blur-md border-orange-500/30 hover:bg-orange-500/10 text-orange-500" asChild>
-                <Link href="#capabilities" className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-orange-500 animate-[pulseIdle_3s_infinite]" />
-                  View Capabilities
-                  <ChevronRight className="w-4 h-4" />
-                </Link>
-             </Button>
-          </MotionReveal>
+
+            {/* Right Column: Visual */}
+            <div className="lg:col-span-7">
+              <ServiceMatrix />
+            </div>
+          </div>
         </Container>
       </HeroShell>
 

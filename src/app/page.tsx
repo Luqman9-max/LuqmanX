@@ -11,7 +11,7 @@ import { CountUp } from "@/components/effects/CountUp"
 import { SectionDivider } from "@/components/effects/SectionDivider"
 import { HeroShell } from "@/components/heroes/HeroShell"
 import { HeroAtmosphere } from "@/components/heroes/HeroAtmosphere"
-import { LandingHeroVisual } from "@/components/heroes/LandingHeroVisual"
+import { CodeMorphTerminal } from "@/components/heroes/CodeMorphTerminal"
 import Link from "next/link"
 import { ArrowRight, Code2, Database, Layout, Server, Sparkles, ChevronDown } from "lucide-react"
 
@@ -53,7 +53,7 @@ export default function Home() {
                 </p>
               </MotionReveal>
 
-              <MotionReveal variant="glowIn" delay={1000} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+              <MotionReveal variant="fadeUp" delay={1000} width="fit-content" className="flex flex-col sm:flex-row items-center gap-4">
                 <Button variant="gradient" size="lg" className="w-full sm:w-auto" asChild>
                   <Link href="/portfolio">Explore Architecture</Link>
                 </Button>
@@ -67,7 +67,7 @@ export default function Home() {
             </div>
 
             {/* Right Column: Visual */}
-            <LandingHeroVisual />
+            <CodeMorphTerminal />
           </div>
         </Container>
 

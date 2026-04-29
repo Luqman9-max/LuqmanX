@@ -17,11 +17,11 @@ export function HeroShell({
   return (
     <section 
       className={cn(
-        "relative flex items-center pt-32 pb-20 overflow-hidden",
+        "relative flex items-center pb-20 overflow-visible",
         {
-          "min-h-[100svh] pt-20": minHeight === "100svh", // Landing page
-          "min-h-[60vh]": minHeight === "60vh",           // About page
-          "min-h-[50vh]": minHeight === "50vh",           // Other pages
+          "min-h-[100svh] -mt-20 pt-20": minHeight === "100svh", // Landing page
+          "min-h-[70vh] -mt-20 pt-32": minHeight === "60vh",           // About page
+          "min-h-[70vh] -mt-20 pt-32": minHeight === "50vh",           // Other pages
         },
         className
       )}
@@ -29,7 +29,7 @@ export function HeroShell({
       {children}
       
       {/* Bottom fade to smoothly transition to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-dark-950 z-[1] pointer-events-none" />
+      <div className="absolute -bottom-4 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-dark-950 z-[1] pointer-events-none" />
     </section>
   )
 }

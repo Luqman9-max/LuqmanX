@@ -13,7 +13,7 @@ export function SectionDivider({ className }: SectionDividerProps) {
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" })
 
   return (
-    <div ref={ref} className={cn("w-full flex justify-center py-10", className)}>
+    <div ref={ref} className={cn("w-full flex justify-center py-4", className)}>
       <motion.div
         className="h-px bg-gradient-to-r from-transparent via-dark-700 to-transparent w-full max-w-4xl relative"
         initial={{ scaleX: 0, opacity: 0 }}

@@ -7,12 +7,12 @@ import { motion, useScroll, useTransform } from "framer-motion"
 export function GridBackground({ className }: { className?: string }) {
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 1000], [0, 200])
-  const opacity = useTransform(scrollY, [0, 500], [0.2, 0.05])
+  const opacity = useTransform(scrollY, [0, 500], [0.06, 0.02])
 
   return (
     <div
       className={cn(
-        "absolute inset-0 z-0 overflow-hidden pointer-events-none perspective-[1000px]",
+        "absolute inset-0 z-0 overflow-hidden pointer-events-none perspective-[1000px] mask-fade-bottom",
         className
       )}
     >

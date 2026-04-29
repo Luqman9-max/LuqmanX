@@ -13,7 +13,7 @@ interface HeroAtmosphereProps {
 
 export function HeroAtmosphere({ variant, className }: HeroAtmosphereProps) {
   return (
-    <div className={cn("absolute inset-0 z-0 pointer-events-none overflow-hidden", className)}>
+    <div className={cn("absolute -top-20 left-0 right-0 -bottom-32 z-0 pointer-events-none", className)}>
       {variant === "converge" && <ConvergeAtmosphere />}
       {variant === "streams" && <StreamsAtmosphere />}
       {variant === "blueprint" && <BlueprintAtmosphere />}
@@ -26,12 +26,10 @@ export function HeroAtmosphere({ variant, className }: HeroAtmosphereProps) {
 function ConvergeAtmosphere() {
   return (
     <>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-dark-900 via-dark-950 to-dark-950" />
-      
       {/* Perspective Grid Converging to center-right */}
-      <div className="absolute inset-0 opacity-20" style={{ perspective: "1000px" }}>
+      <div className="absolute inset-0 opacity-[0.03]" style={{ perspective: "1000px" }}>
         <div 
-          className="absolute inset-[-50%] border-dark-700 [background-size:60px_60px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)]"
+          className="absolute inset-[-50%] border-dark-700 [background-size:60px_60px] [background-image:linear-gradient(to_right,rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,1)_1px,transparent_1px)]"
           style={{ 
             transform: "rotateX(60deg) translateY(-100px) translateZ(-200px)",
             transformOrigin: "center center"
@@ -55,8 +53,6 @@ function ConvergeAtmosphere() {
 function StreamsAtmosphere() {
   return (
     <>
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-950 via-dark-900 to-dark-950" />
-      
       {/* Vertical Data Streams */}
       <div className="absolute inset-0 opacity-10 flex justify-around">
         {[...Array(10)].map((_, i) => (
@@ -78,8 +74,6 @@ function StreamsAtmosphere() {
 function BlueprintAtmosphere() {
   return (
     <>
-      <div className="absolute inset-0 bg-dark-950" />
-      
       {/* Blueprint Grid */}
       <div className="absolute inset-0 opacity-[0.03] [background-size:40px_40px] [background-image:linear-gradient(to_right,rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,1)_1px,transparent_1px)]" />
 
@@ -90,12 +84,12 @@ function BlueprintAtmosphere() {
         transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
       />
       
-      {/* Glow behind right side cards */}
+      {/* Glow behind right side cards (Changed from blue to purple to match brand) */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.1 }}
         transition={{ duration: 2, ease: "easeOut" }}
-        className="absolute top-1/2 right-[25%] -translate-y-1/2 w-[600px] h-[600px] bg-blue-500 rounded-full blur-[150px]"
+        className="absolute top-1/2 right-[25%] -translate-y-1/2 w-[600px] h-[600px] bg-purple-500 rounded-full blur-[150px]"
       />
     </>
   )
@@ -104,8 +98,6 @@ function BlueprintAtmosphere() {
 function OrbitalAtmosphere() {
   return (
     <>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-dark-900 via-dark-950 to-dark-950" />
-      
       {/* Concentric rings */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex items-center justify-center opacity-10">
         {[400, 600, 800, 1000].map((size, i) => (
@@ -140,8 +132,6 @@ function OrbitalAtmosphere() {
 function NetworkAtmosphere() {
   return (
     <>
-      <div className="absolute inset-0 bg-dark-950" />
-      
       {/* Network Nodes Grid */}
       <div className="absolute inset-0 opacity-20">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
