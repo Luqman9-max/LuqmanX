@@ -20,8 +20,7 @@ export function HeroShell({
         "relative flex items-center pb-20 overflow-visible",
         {
           "min-h-[100svh] -mt-20 pt-20": minHeight === "100svh", // Landing page
-          "min-h-[70vh] -mt-20 pt-32": minHeight === "60vh",           // About page
-          "min-h-[70vh] -mt-20 pt-32": minHeight === "50vh",           // Other pages
+          "min-h-[70vh] -mt-20 pt-32": minHeight === "60vh" || minHeight === "50vh", // Sub-pages
         },
         className
       )}
