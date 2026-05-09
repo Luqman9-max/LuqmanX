@@ -1,29 +1,72 @@
 "use client"
 
 import * as React from "react"
-import { useForm, ValidationError } from "@formspree/react"
 import { Container } from "@/components/layout/Container"
 import { MotionReveal } from "@/components/effects/MotionReveal"
-import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { SectionDivider } from "@/components/effects/SectionDivider"
 import { HeroShell } from "@/components/heroes/HeroShell"
 import { HeroAtmosphere } from "@/components/heroes/HeroAtmosphere"
 import { ContactSignalPath } from "@/components/heroes/ContactSignalPath"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Loader2, Code2, Terminal, ArrowRight, Activity, Clock, Globe } from "lucide-react"
+import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Loader2, Terminal, ArrowRight, Activity, Clock, AlertCircle } from "lucide-react"
 
 export default function ContactPage() {
-  const [state, handleSubmit] = useForm("xpwavzyz")
+  const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
   const [focusedField, setFocusedField] = React.useState<string | null>(null)
   const [activeTab, setActiveTab] = React.useState<"email" | "whatsapp" | "location">("email")
   
+  // Form data state
+  const [formData, setFormData] = React.useState({ 
+    name: "", 
+    email: "", 
+    subject: "", 
+    message: "",
+    honeypot: "" // Anti-spam field
+  })
+
   // Progress bar calculation
-  const [formData, setFormData] = React.useState({ name: "", email: "", subject: "", message: "" })
-  const progress = Object.values(formData).filter(v => v.length > 0).length * 25
+  const progress = Object.values({ 
+    name: formData.name, 
+    email: formData.email, 
+    subject: formData.subject, 
+    message: formData.message 
+  }).filter(v => v.length > 0).length * 25
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    // Prevent double submission
+    if (status === 'loading') return
+
+    setStatus('loading')
+    setErrorMessage(null)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message')
+      }
+
+      setStatus('success')
+    } catch (error: any) {
+      console.error('Submission error:', error)
+      setStatus('error')
+      setErrorMessage(error.message || 'Something went wrong. Please try again.')
+    }
   }
 
   // Live time
@@ -129,7 +172,7 @@ export default function ContactPage() {
                               <div className="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500"><Mail className="w-5 h-5" /></div>
                               <span className="text-sm font-mono text-neutral-400 uppercase tracking-wider">Primary Channel</span>
                             </div>
-                            <a href="mailto:luqman@example.com" className="text-lg md:text-xl font-display font-bold text-white hover:text-orange-500 transition-colors">luqman@example.com</a>
+                            <a href="mailto:raphaelsylvester39@gmail.com" className="text-lg md:text-xl font-display font-bold text-white hover:text-orange-500 transition-colors">raphaelsylvester39@gmail.com</a>
                           </motion.div>
                         )}
                         {activeTab === "whatsapp" && (
@@ -216,106 +259,151 @@ export default function ContactPage() {
                     {/* Matrix Rain / Background for Form */}
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] opacity-20 pointer-events-none" />
 
-                    {state.succeeded ? (
-                      <div className="h-full flex flex-col items-center justify-center text-center py-10 animate-in fade-in zoom-in duration-500 relative z-10">
-                        <div className="relative mb-8">
-                          <div className="absolute inset-0 bg-orange-500/20 rounded-full blur-xl animate-pulse" />
-                          <CheckCircle2 className="w-24 h-24 text-orange-500 relative z-10" />
-                        </div>
-                        <h3 className="text-3xl font-display font-bold text-white mb-4">Transmission Successful</h3>
-                        <p className="text-neutral-400 text-lg mb-8 max-w-sm mx-auto font-mono text-sm">
-                          &gt; Payload received.<br/>&gt; Processing request...<br/>&gt; Awaiting manual response.
-                        </p>
-                        <Button variant="outline" onClick={() => { window.location.reload() }}>
-                          Send Another Sequence
-                        </Button>
-                      </div>
-                    ) : (
-                      <form onSubmit={handleSubmit} className="flex flex-col gap-8 h-full relative z-10">
-                        <div className="mb-2">
-                          <h3 className="text-3xl font-display font-bold text-white mb-2">Compose Payload</h3>
-                          <p className="text-neutral-400">Fill parameters below to initialize secure channel.</p>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                          {/* Name Field */}
-                          <div className="relative group">
-                            <label htmlFor="name" className={`absolute left-4 px-1 bg-dark-900 transition-all duration-300 font-mono flex items-center gap-1 ${
-                                focusedField === 'name' || formData.name ? '-top-2.5 text-orange-500 text-xs' : 'top-4 text-neutral-500'
-                              }`}>
-                              {focusedField === 'name' && <span className="w-1.5 h-3 bg-orange-500 animate-pulse" />} Name
-                            </label>
-                            <input id="name" type="text" name="name" required
-                              value={formData.name} onChange={handleInputChange}
-                              onFocus={() => setFocusedField('name')} onBlur={() => setFocusedField(null)}
-                              className="w-full bg-transparent border border-dark-700 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all group-hover:border-dark-500"
-                            />
+                    <AnimatePresence mode="wait">
+                      {status === 'success' ? (
+                        <motion.div 
+                          key="success"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="h-full flex flex-col items-center justify-center text-center py-10 relative z-10"
+                        >
+                          <div className="relative mb-8">
+                            <div className="absolute inset-0 bg-orange-500/20 rounded-full blur-xl animate-pulse" />
+                            <CheckCircle2 className="w-24 h-24 text-orange-500 relative z-10" />
                           </div>
-
-                          {/* Email Field */}
-                          <div className="relative group">
-                            <label htmlFor="email" className={`absolute left-4 px-1 bg-dark-900 transition-all duration-300 font-mono flex items-center gap-1 ${
-                                focusedField === 'email' || formData.email ? '-top-2.5 text-orange-500 text-xs' : 'top-4 text-neutral-500'
-                              }`}>
-                              {focusedField === 'email' && <span className="w-1.5 h-3 bg-orange-500 animate-pulse" />} Email Address
-                            </label>
-                            <input id="email" type="email" name="email" required
-                              value={formData.email} onChange={handleInputChange}
-                              onFocus={() => setFocusedField('email')} onBlur={() => setFocusedField(null)}
-                              className="w-full bg-transparent border border-dark-700 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all group-hover:border-dark-500"
-                            />
-                            <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-500 text-xs mt-1 absolute -bottom-5" />
-                          </div>
-                        </div>
-
-                        {/* Subject Field */}
-                        <div className="relative group">
-                          <label htmlFor="subject" className={`absolute left-4 px-1 bg-dark-900 transition-all duration-300 font-mono flex items-center gap-1 ${
-                              focusedField === 'subject' || formData.subject ? '-top-2.5 text-orange-500 text-xs' : 'top-4 text-neutral-500'
-                            }`}>
-                            {focusedField === 'subject' && <span className="w-1.5 h-3 bg-orange-500 animate-pulse" />} Subject
-                          </label>
-                          <input id="subject" type="text" name="subject" required
-                            value={formData.subject} onChange={handleInputChange}
-                            onFocus={() => setFocusedField('subject')} onBlur={() => setFocusedField(null)}
-                            className="w-full bg-transparent border border-dark-700 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all group-hover:border-dark-500"
-                          />
-                        </div>
-
-                        {/* Message Field */}
-                        <div className="relative group flex-1 flex flex-col">
-                          <label htmlFor="message" className={`absolute left-4 px-1 bg-dark-900 transition-all duration-300 font-mono flex items-center gap-1 ${
-                              focusedField === 'message' || formData.message ? '-top-2.5 text-orange-500 text-xs' : 'top-4 text-neutral-500'
-                            }`}>
-                            {focusedField === 'message' && <span className="w-1.5 h-3 bg-orange-500 animate-pulse" />} Message Payload
-                          </label>
-                          <textarea id="message" name="message" required rows={5}
-                            value={formData.message} onChange={handleInputChange}
-                            onFocus={() => setFocusedField('message')} onBlur={() => setFocusedField(null)}
-                            className="w-full h-full min-h-[160px] bg-transparent border border-dark-700 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all group-hover:border-dark-500 resize-none font-mono text-sm"
-                          />
-                          <div className="flex justify-between items-center mt-2 px-1">
-                            <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-500 text-xs" />
-                            <span className="text-xs font-mono text-neutral-600 ml-auto">{formData.message.length} chars</span>
-                          </div>
-                        </div>
-
-                        <div className="pt-2">
-                          <Button type="submit" variant="gradient" size="lg" className="w-full relative overflow-hidden group/submit" disabled={state.submitting} magnetic>
-                            <span className="relative z-10 flex items-center justify-center font-mono font-bold tracking-wider">
-                              {state.submitting ? (
-                                <><Loader2 className="w-5 h-5 animate-spin mr-2" /> EXECUTING...</>
-                              ) : (
-                                <>
-                                  <span className="group-hover/submit:hidden flex items-center gap-2">TRANSMIT DATA <Send className="w-5 h-5" /></span>
-                                  <span className="hidden group-hover/submit:flex items-center gap-2">&gt; ./transmit.sh <ArrowRight className="w-5 h-5" /></span>
-                                </>
-                              )}
-                            </span>
+                          <h3 className="text-3xl font-display font-bold text-white mb-4">Transmission Successful</h3>
+                          <p className="text-neutral-400 text-lg mb-8 max-w-sm mx-auto font-mono text-sm leading-relaxed">
+                            &gt; Payload received.<br/>&gt; Processing request...<br/>&gt; Awaiting manual response.
+                          </p>
+                          <Button variant="outline" onClick={() => { setStatus('idle'); setFormData({ name: "", email: "", subject: "", message: "", honeypot: "" }) }}>
+                            Send Another Sequence
                           </Button>
-                        </div>
-                      </form>
-                    )}
+                        </motion.div>
+                      ) : (
+                        <motion.form 
+                          key="form"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          onSubmit={handleSubmit} 
+                          className="flex flex-col gap-8 h-full relative z-10"
+                        >
+                          {/* Honeypot Field (Hidden) */}
+                          <input 
+                            type="text" 
+                            name="honeypot" 
+                            value={formData.honeypot} 
+                            onChange={handleInputChange} 
+                            className="hidden" 
+                            tabIndex={-1} 
+                            autoComplete="off" 
+                          />
+
+                          <div className="mb-2">
+                            <h3 className="text-3xl font-display font-bold text-white mb-2">Compose Payload</h3>
+                            <p className="text-neutral-400">Fill parameters below to initialize secure channel.</p>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* Name Field */}
+                            <div className="relative group">
+                              <label htmlFor="name" className={`absolute left-4 px-1 bg-dark-900 transition-all duration-300 font-mono flex items-center gap-1 ${
+                                  focusedField === 'name' || formData.name ? '-top-2.5 text-orange-500 text-xs' : 'top-4 text-neutral-500'
+                                }`}>
+                                {focusedField === 'name' && <span className="w-1.5 h-3 bg-orange-500 animate-pulse" />} Name
+                              </label>
+                              <input id="name" type="text" name="name" required
+                                value={formData.name} onChange={handleInputChange}
+                                onFocus={() => setFocusedField('name')} onBlur={() => setFocusedField(null)}
+                                className="w-full bg-transparent border border-dark-700 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all group-hover:border-dark-500"
+                              />
+                            </div>
+
+                            {/* Email Field */}
+                            <div className="relative group">
+                              <label htmlFor="email" className={`absolute left-4 px-1 bg-dark-900 transition-all duration-300 font-mono flex items-center gap-1 ${
+                                  focusedField === 'email' || formData.email ? '-top-2.5 text-orange-500 text-xs' : 'top-4 text-neutral-500'
+                                }`}>
+                                {focusedField === 'email' && <span className="w-1.5 h-3 bg-orange-500 animate-pulse" />} Email Address
+                              </label>
+                              <input id="email" type="email" name="email" required
+                                value={formData.email} onChange={handleInputChange}
+                                onFocus={() => setFocusedField('email')} onBlur={() => setFocusedField(null)}
+                                className="w-full bg-transparent border border-dark-700 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all group-hover:border-dark-500"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Subject Field */}
+                          <div className="relative group">
+                            <label htmlFor="subject" className={`absolute left-4 px-1 bg-dark-900 transition-all duration-300 font-mono flex items-center gap-1 ${
+                                focusedField === 'subject' || formData.subject ? '-top-2.5 text-orange-500 text-xs' : 'top-4 text-neutral-500'
+                              }`}>
+                              {focusedField === 'subject' && <span className="w-1.5 h-3 bg-orange-500 animate-pulse" />} Subject
+                            </label>
+                            <input id="subject" type="text" name="subject" required
+                              value={formData.subject} onChange={handleInputChange}
+                              onFocus={() => setFocusedField('subject')} onBlur={() => setFocusedField(null)}
+                              className="w-full bg-transparent border border-dark-700 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all group-hover:border-dark-500"
+                            />
+                          </div>
+
+                          {/* Message Field */}
+                          <div className="relative group flex-1 flex flex-col">
+                            <label htmlFor="message" className={`absolute left-4 px-1 bg-dark-900 transition-all duration-300 font-mono flex items-center gap-1 ${
+                                focusedField === 'message' || formData.message ? '-top-2.5 text-orange-500 text-xs' : 'top-4 text-neutral-500'
+                              }`}>
+                              {focusedField === 'message' && <span className="w-1.5 h-3 bg-orange-500 animate-pulse" />} Message Payload
+                            </label>
+                            <textarea id="message" name="message" required rows={5}
+                              value={formData.message} onChange={handleInputChange}
+                              onFocus={() => setFocusedField('message')} onBlur={() => setFocusedField(null)}
+                              className="w-full h-full min-h-[160px] bg-transparent border border-dark-700 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all group-hover:border-dark-500 resize-none font-mono text-sm"
+                            />
+                            <div className="flex justify-between items-center mt-2 px-1">
+                              <span className="text-xs font-mono text-neutral-600 ml-auto">{formData.message.length} chars</span>
+                            </div>
+                          </div>
+
+                          {/* Error Display */}
+                          <AnimatePresence>
+                            {status === 'error' && (
+                              <motion.div 
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="flex items-center gap-2 text-red-500 font-mono text-xs bg-red-500/10 p-3 rounded-lg border border-red-500/20"
+                              >
+                                <AlertCircle className="w-4 h-4 shrink-0" />
+                                {errorMessage}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+
+                          <div className="pt-2">
+                            <Button 
+                              type="submit" 
+                              variant="gradient" 
+                              size="lg" 
+                              className="w-full relative overflow-hidden group/submit" 
+                              disabled={status === 'loading'} 
+                              magnetic
+                            >
+                              <span className="relative z-10 flex items-center justify-center font-mono font-bold tracking-wider">
+                                {status === 'loading' ? (
+                                  <><Loader2 className="w-5 h-5 animate-spin mr-2" /> EXECUTING...</>
+                                ) : (
+                                  <>
+                                    <span className="group-hover/submit:hidden flex items-center gap-2">TRANSMIT DATA <Send className="w-5 h-5" /></span>
+                                    <span className="hidden group-hover/submit:flex items-center gap-2">&gt; ./transmit.sh <ArrowRight className="w-5 h-5" /></span>
+                                  </>
+                                )}
+                              </span>
+                            </Button>
+                          </div>
+                        </motion.form>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
               </MotionReveal>
