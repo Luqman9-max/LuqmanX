@@ -81,7 +81,7 @@ export function Footer() {
               <ul className="flex flex-col gap-4">
                 <MotionReveal variant="fadeLeft">
                   <li>
-                    <a href="mailto:luqman@example.com" className="text-neutral-400 hover:text-orange-500 hover:translate-x-1 inline-block transition-all">
+                    <a href="mailto:raphaelsylvester39@gmail.com" className="text-neutral-400 hover:text-orange-500 hover:translate-x-1 inline-block transition-all">
                       Email
                     </a>
                   </li>
@@ -102,7 +102,7 @@ export function Footer() {
                 </MotionReveal>
                 <MotionReveal variant="fadeLeft">
                   <li>
-                    <a href="#" className="text-neutral-400 hover:text-white hover:translate-x-1 inline-block transition-all">
+                    <a href="https://github.com/Luqman9-max" className="text-neutral-400 hover:text-white hover:translate-x-1 inline-block transition-all">
                       GitHub
                     </a>
                   </li>
